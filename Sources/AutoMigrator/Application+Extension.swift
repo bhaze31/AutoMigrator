@@ -27,7 +27,9 @@ public extension Application {
         let fm = FileManager.default
         let directory = DirectoryConfiguration.detect()
         if let items = try? fm.contentsOfDirectory(atPath: directory.workingDirectory + path) {
-            for item in items {
+            let sorted = items.sorted { $0 < $1 }
+            
+            for item in sorted {
                 let migration = item.split(separator: ".")[0]
                 
                 if let klass = NSClassFromString("\(namespace).\(prefix)\(migration)") as? AutoMigration.Type {
