@@ -27,3 +27,24 @@ open class AutoMigration: Migration {
     
     required public init() {}
 }
+
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+open class AsyncAutoMigration: AsyncMigration {
+    open func prepare(on database: Database) async throws {
+        fatalError("Subclass must override prepare")
+    }
+    
+    open func revert(on database: Database) async throws {
+        fatalError("Subclass must override revert")
+    }
+    
+    open var name: String {
+        fatalError("Must define name of AutoMigration in subclass")
+    }
+    
+    open var defaultName: String {
+        fatalError("Must define defaultName of AutoMigration in subclass")
+    }
+    
+    required public init() {}
+}
