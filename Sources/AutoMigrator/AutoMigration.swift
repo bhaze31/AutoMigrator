@@ -28,7 +28,6 @@ open class AutoMigration: Migration {
     required public init() {}
 }
 
-@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 open class AsyncAutoMigration: AsyncMigration {
     open func prepare(on database: Database) async throws {
         fatalError("Subclass must override prepare")

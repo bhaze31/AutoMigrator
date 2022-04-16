@@ -31,8 +31,10 @@ public extension Application {
             
             for item in sorted {
                 let migration = item.split(separator: ".")[0]
-                
-                if let klass = NSClassFromString("\(namespace).\(prefix)\(migration)") as? AutoMigration.Type {
+                let migrationName = "\(namespace).\(prefix)\(migration)"
+                if let klass = NSClassFromString(migrationName) as? AutoMigration.Type {
+                    self.migrations.add(klass.init())
+                } else if let klass = NSClassFromString(migrationName) as? AsyncAutoMigration.Type {
                     self.migrations.add(klass.init())
                 } else {
                     if fatal {
